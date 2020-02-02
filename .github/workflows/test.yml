@@ -18,11 +18,10 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install test dependencies
       run: |
-        pip install -U pip black==19.10b0
+        pip install -U pip
     - name: Build
       run: |
         python setup.py build_ext --force
         python setup.py develop
-    - name: Lint with black
-      run: |
-        black --check .
+    - name: Black Check
+      uses: jpetrucciani/black-check@19.10b0
