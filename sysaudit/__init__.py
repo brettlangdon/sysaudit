@@ -10,7 +10,7 @@ if hasattr(sys, "audit") and hasattr(sys, "addaudithook"):
     addaudithook = sys.addaudithook
 else:
     try:
-        from .csysaudit import audit, addaudithook
+        from ._csysaudit import audit, addaudithook
     except ImportError:
         _hooks = list()
 
