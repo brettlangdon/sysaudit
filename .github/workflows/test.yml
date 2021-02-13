@@ -21,5 +21,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - uses: Gr1N/setup-poetry@v4
+      - run: pip install setuptools Cython
+        name: Install build dependencies
       - run: poetry check
       - run: poetry build
