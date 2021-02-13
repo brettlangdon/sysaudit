@@ -17,8 +17,7 @@ else:
         def audit(event, *args):
             global _hooks
             # Grab a copy of hooks so we don't need to lock here
-            hooks = _hooks.copy()
-            for hook in hooks:
+            for hook in _hooks[:]:
                 hook(event, args)
 
         def addaudithook(callback):

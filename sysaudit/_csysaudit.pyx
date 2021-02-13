@@ -3,9 +3,8 @@ _hooks = list()
 
 def audit(event, *args):
     global _hooks
-
-    hooks = _hooks.copy()
-    for hook in hooks:
+    # Grab a copy of hooks so we don't need to lock here
+    for hook in _hooks[:]:
         hook(event, args)
 
 
