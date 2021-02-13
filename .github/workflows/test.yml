@@ -1,0 +1,20 @@
+jobs:
+  black:
+    steps:
+      - uses: actions/checkout@v2
+      - name: Black Check
+        uses: jpetrucciani/black-check@20.8b1
+  poetry:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["2.7", "3.5", "3.6", "3.7", "3.8", "3.9"]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: Gr1N/setup-poetry@v4
+      - run: poetry check
+      - run: poetry build
