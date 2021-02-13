@@ -5,3 +5,4 @@ ext/
 dist/
 *.egg-info
 __pycache__
+*.c
