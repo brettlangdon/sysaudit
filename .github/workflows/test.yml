@@ -10,10 +10,9 @@ jobs:
       - name: Black Check
         uses: jpetrucciani/black-check@20.8b1
   test:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
         python-version: ["2.7", "3.5", "3.6", "3.7", "3.8", "3.9"]
     steps:
       - uses: actions/checkout@v2
