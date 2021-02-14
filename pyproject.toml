@@ -5,6 +5,9 @@ description = "Backport module for sys.audit and sys.addaudithook from Python 3.
 authors = ["brettlangdon <me@brett.is>"]
 license = "MIT"
 build = "build.py"
+repository = "https://github.com/brettlangdon/sysaudit"
+homepage = "https://github.com/brettlangdon/sysaudit"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "~2.7 || ~=3.5"
