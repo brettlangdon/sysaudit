@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sysaudit"
-version = "0.1.0"
+version = "0.2.0"
 description = "Backport module for sys.audit and sys.addaudithook from Python 3.8"
 authors = ["brettlangdon <me@brett.is>"]
 license = "MIT"
