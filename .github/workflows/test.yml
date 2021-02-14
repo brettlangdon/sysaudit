@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Black Check
         uses: jpetrucciani/black-check@20.8b1
-  poetry:
+  test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -23,4 +23,4 @@ jobs:
       - uses: Gr1N/setup-poetry@v4
       - run: poetry check
       - run: poetry install
-      - run: poetry build
+      - run: poetry run pytest tests/
