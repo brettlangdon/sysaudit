@@ -24,7 +24,7 @@ class AuditTest(unittest.TestCase):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        if sys.version_info > (3, 5):
+        if sys.version_info >= (3, 6):
             popen_kwargs["encoding"] = "utf-8"
 
         p = subprocess.Popen(
@@ -43,7 +43,7 @@ class AuditTest(unittest.TestCase):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        if sys.version_info > (3, 5):
+        if sys.version_info >= (3, 6):
             popen_kwargs["encoding"] = "utf-8"
 
         p = subprocess.Popen(
