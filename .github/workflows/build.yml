@@ -33,7 +33,7 @@ jobs:
       - run: poetry check
       - run: poetry install
       - run: poetry build --format sdist
-      - uses: actions/upload-artifacts@v2
+      - uses: actions/upload-artifact@v2
         with:
           path: ./dist/*.tar.gz
 
