@@ -63,7 +63,7 @@ def subscribe(event, hook):
 
 
 class Span:
-    __slots__ = ("name", "started", "ended")
+    __slots__ = ("name", "started", "ended", "data")
 
     class Message:
         __slots__ = ("type", "span", "data")
@@ -78,10 +78,11 @@ class Span:
                 self.__class__.__name__, self.type, self.span, self.data
             )
 
-    def __init__(self, name):
+    def __init__(self, name, data=None):
         self.name = name
         self.started = False
         self.ended = False
+        self.data = data
 
     @property
     def id(self):
@@ -111,6 +112,9 @@ class Span:
         self.end(data=dict(exc_type=exc_type, exc_val=exc_val, exc_tb=exc_tb))
 
     def __str__(self):
-        return "{0}(name={1!r}, id={2!r})".format(
-            self.__class__.__name__, self.name, self.id
+        return "{0}(name={1!r}, id={2!r}, data={3!r})".format(
+            self.__class__.__name__,
+            self.name,
+            self.id,
+            self.data,
         )
