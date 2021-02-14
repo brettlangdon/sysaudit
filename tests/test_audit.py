@@ -144,7 +144,7 @@ class AuditTest(unittest.TestCase):
         self.assertEqual(events[0][0], "socket.gethostname")
         self.assertEqual(events[1][0], "socket.__new__")
         self.assertEqual(events[2][0], "socket.bind")
-        self.assertTrue(events[2][2].endswith("('127.0.0.1', 8080)"))
+        self.assertTrue(events[2][2].endswith("('127.0.0.1', 8080))"))
 
 
 if __name__ == "__main__":
