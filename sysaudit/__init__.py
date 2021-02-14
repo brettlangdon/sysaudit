@@ -96,6 +96,11 @@ class Span:
             self.message("start", data)
             self.started = True
 
+        # Return `self` so we can explicitly call `start` with data in a context manager:
+        #     with sysaudit.Span("my.event").start(dict(start_only="data")) as span:
+        #         pass
+        return self
+
     def end(self, data=None):
         if not self.ended:
             self.message("end", data)
