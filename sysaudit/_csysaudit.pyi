@@ -1,0 +1,6 @@
+import typing
+
+def audit(event: str, *args: typing.Any) -> None: ...
+def addaudithook(
+    hook: typing.Callable[[str, typing.Tuple[typing.Any, ...]], None]
+) -> None: ...
