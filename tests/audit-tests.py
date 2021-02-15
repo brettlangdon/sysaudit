@@ -148,15 +148,15 @@ def test_monkeypatch():
         # Catch name changes
         C.__name__ = "X"
         # Catch type changes
-        C.__bases__ = (B,)
+        C.__bases__ = (B,)  # noqa
         # Ensure bypassing __setattr__ is still caught
         type.__dict__["__bases__"].__set__(C, (B,))
         # Catch attribute replacement
         C.__init__ = B.__init__
         # Catch attribute addition
-        C.new_attr = 123
+        C.new_attr = 123  # noqa
         # Catch class changes
-        a.__class__ = B
+        a.__class__ = B  # noqa
 
     actual = [(a[0], a[1]) for e, a in hook.seen if e == "object.__setattr__"]
     assertSequenceEqual(
@@ -222,19 +222,19 @@ def test_cantrace():
             eval("1")
 
             # No traced call
-            hook.__cantrace__ = False
+            hook.__cantrace__ = False  # noqa
             eval("2")
 
             # One traced call
-            hook.__cantrace__ = True
+            hook.__cantrace__ = True  # noqa
             eval("3")
 
             # Two traced calls (writing to private member, eval)
-            hook.__cantrace__ = 1
+            hook.__cantrace__ = 1  # noqa
             eval("4")
 
             # One traced call (writing to private member)
-            hook.__cantrace__ = 0
+            hook.__cantrace__ = 0  # noqa
     finally:
         sys.settrace(old)
 
@@ -272,7 +272,7 @@ def test_excepthook():  # type: () -> None
 def test_unraisablehook():  # type: () -> None
     from _testcapi import write_unraisable_exc  # type: ignore
 
-    def unraisablehook(hookargs):
+    def unraisablehook(hookargs):  # noqa: F841
         pass
 
     def hook(event, args):  # type: (str, typing.Tuple[typing.Any, ...]) -> None
