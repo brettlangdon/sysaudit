@@ -6,6 +6,7 @@ module with arguments identifying each test.
 """
 
 import contextlib
+import typing
 import sys
 
 import sysaudit
@@ -24,7 +25,7 @@ class TestHook:
         self.seen = []
         self.closed = False
 
-    def __enter__(self, *a):
+    def __enter__(self, *a):  # type: (typing.Any) -> TestHook
         sysaudit.addaudithook(self)
         return self
 
@@ -38,7 +39,9 @@ class TestHook:
     def seen_events(self):
         return [i[0] for i in self.seen]
 
-    def __call__(self, event, args):
+    def __call__(
+        self, event, args
+    ):  # type: (str, typing.Tuple[typing.Any, ...]) -> None
         if self.closed:
             return
         self.seen.append((event, args))
@@ -246,12 +249,12 @@ def test_mmap():
         assertEqual(hook.seen[0][1][:2], (-1, 8))
 
 
-def test_excepthook():
+def test_excepthook():  # type: () -> None
     def excepthook(exc_type, exc_value, exc_tb):
         if exc_type is not RuntimeError:
             sys.__excepthook__(exc_type, exc_value, exc_tb)
 
-    def hook(event, args):
+    def hook(event, args):  # type: (str, typing.Tuple[typing.Any, ...]) -> None
         if event == "sys.excepthook":
             if not isinstance(args[2], args[1]):
                 raise TypeError(
@@ -266,27 +269,27 @@ def test_excepthook():
     raise RuntimeError("fatal-error")
 
 
-def test_unraisablehook():
-    from _testcapi import write_unraisable_exc
+def test_unraisablehook():  # type: () -> None
+    from _testcapi import write_unraisable_exc  # type: ignore
 
     def unraisablehook(hookargs):
         pass
 
-    def hook(event, args):
+    def hook(event, args):  # type: (str, typing.Tuple[typing.Any, ...]) -> None
         if event == "sys.unraisablehook":
             if args[0] != unraisablehook:
                 raise ValueError("Expected {} == {}".format(args[0], unraisablehook))
             print(event, repr(args[1].exc_value), args[1].err_msg)
 
     sysaudit.addaudithook(hook)
-    sys.unraisablehook = unraisablehook
+    sys.unraisablehook = unraisablehook  # type: ignore [attr-defined]
     write_unraisable_exc(RuntimeError("nonfatal-error"), "for audit hook test", None)
 
 
-def test_winreg():
-    from winreg import OpenKey, EnumKey, CloseKey, HKEY_LOCAL_MACHINE
+def test_winreg():  # type: () -> None
+    from winreg import OpenKey, EnumKey, CloseKey, HKEY_LOCAL_MACHINE  # type: ignore
 
-    def hook(event, args):
+    def hook(event, args):  # type: (str, typing.Tuple[typing.Any, ...]) -> None
         if not event.startswith("winreg."):
             return
         print(event, args)
@@ -306,10 +309,10 @@ def test_winreg():
     CloseKey(kv)
 
 
-def test_socket():
+def test_socket():  # type: () -> None
     import socket
 
-    def hook(event, args):
+    def hook(event, args):  # type: (str, typing.Tuple[typing.Any, ...]) -> None
         if event.startswith("socket."):
             print(event, args)
 
