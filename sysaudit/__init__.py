@@ -102,6 +102,10 @@ class Span:
         return self
 
     def end(self, data=None):
+        if not self.started:
+            raise RuntimeError(
+                "Attempting to end span {} before it was started".format(self)
+            )
         if not self.ended:
             self.message("end", data)
             self.ended = True
