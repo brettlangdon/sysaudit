@@ -4,7 +4,7 @@ sysaudit
   :target: https://sysaudit.readthedocs.io/en/latest/?badge=latest
   :alt: Documentation Status
 
-.. image: https://github.com/brettlangdon/sysaudit/workflows/Build/badge.svg?branch=main&event=push
+.. image:: https://github.com/brettlangdon/sysaudit/workflows/Build/badge.svg?branch=main&event=push
   :target: https://github.com/brettlangdon/sysaudit/actions?query=branch%3Amain+workflow%3ABuild+event%3Apush
   :alt: Build status
 
