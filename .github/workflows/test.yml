@@ -24,7 +24,10 @@ jobs:
           python-version: "3.9"
       - uses: Gr1N/setup-poetry@v4
       - run: poetry install
-      - run: poetry run mypy --py2 sysaudit/
+      - run: poetry run mypy --py2 sysaudit/ tests/
+        name: Mypy Check Python2
+      - run: poetry run mypy sysaudit/ tests/
+        name: Mypy Check Python3
   test:
     runs-on: ubuntu-latest
     strategy:
