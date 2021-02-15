@@ -110,8 +110,7 @@ class Span:
         self.message("annotate", data)
 
     def __enter__(self):
-        self.start()
-        return self
+        return self.start()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.end(data=dict(exc_type=exc_type, exc_val=exc_val, exc_tb=exc_tb))
