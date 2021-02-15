@@ -201,9 +201,6 @@ category = "dev"
 optional = false
 python-versions = "*"
 
-[package.dependencies]
-typing = {version = ">=3.5.3", markers = "python_version < \"3.5\""}
-
 [[package]]
 name = "packaging"
 version = "20.9"
@@ -349,9 +346,6 @@ category = "dev"
 optional = false
 python-versions = "*"
 
-[package.dependencies]
-typing = {version = ">=3.7.4", markers = "python_version < \"3.5\""}
-
 [[package]]
 name = "wcwidth"
 version = "0.2.5"
@@ -381,7 +375,7 @@ testing = ["pathlib2", "unittest2", "jaraco.itertools", "func-timeout"]
 [metadata]
 lock-version = "1.1"
 python-versions = "~2.7 || ~=3.5"
-content-hash = "2f4ea44e6a53ed63ef7ebef24ef1a6980fbd6d5e1413fbdcdffde3695cd7f8d1"
+content-hash = "fe83468734284b10f0b424dab2cf20729e7feab41eac731cc1b7e86b4accc4f1"
 
 [metadata.files]
 appdirs = [
