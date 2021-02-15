@@ -63,6 +63,9 @@ jobs:
           name: wheelhouse
           path: dist
       - run: pip install --no-index --find-links=./dist sysaudit
+        name: Install sysaudit from wheels
+      - run: python -c "import sysaudit; sysaudit.audit('event')"
+        name: Check module is importable
 
   upload_pypi:
     needs: [test_install]
