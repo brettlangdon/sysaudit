@@ -46,20 +46,18 @@ jobs:
           path: ./dist/*.tar.gz
 
   test_install:
-    name: Test install on ${{ matrix.os }} / ${{ matrix.python-version }} / ${{ matrix.architecture }}
+    name: Test install on ${{ matrix.os }} / ${{ matrix.python-version }}
     needs: [build_wheels, build_sdist]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest]
         python-version: ["2.7", "3.5", "3.6", "3.7", "3.8", "3.9", "pypy-2.7", "pypy-3.6", "pypy-3.7"]
-        architecture: ["x64", "x86"]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-          architecture: ${{ matrix.architecture }}
       - uses: actions/download-artifact@v2
         with:
           name: wheelhouse
