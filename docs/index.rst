@@ -24,7 +24,7 @@ API
 
    Adds a new audit hook callback.
 
-   :param callable hook: Function to call with every event from :py:func:`audit`
+   :param hook: Function to call with every event from :py:func:`audit`
    :rtype: None
 
    .. code-block:: python
