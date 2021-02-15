@@ -1,8 +1,8 @@
 sysaudit
 ========
 .. image:: https://readthedocs.org/projects/sysaudit/badge/?version=latest
-:target: https://sysaudit.readthedocs.io/en/latest/?badge=latest
-:alt: Documentation Status
+  :target: https://sysaudit.readthedocs.io/en/latest/?badge=latest
+  :alt: Documentation Status
 
 Backport module of `sys.audit <https://docs.python.org/3.8/library/sys.html#sys.audit>`_
 and `sys.addaudithook <https://docs.python.org/3.8/library/sys.html#sys.addaudithook>`_
