@@ -6,8 +6,8 @@ authors = ["brettlangdon <me@brett.is>"]
 license = "MIT"
 build = "build.py"
 repository = "https://github.com/brettlangdon/sysaudit"
-homepage = "https://github.com/brettlangdon/sysaudit"
-readme = "README.md"
+homepage = "https://sysaudit.readthedocs.io/"
+readme = "README.rst"
 
 [tool.poetry.dependencies]
 python = "~2.7 || ~=3.5"
@@ -19,6 +19,8 @@ pytest = {version = "~=4.6"}
 mock = "~=3.0"
 mypy = {version = "~=0.800", python = "~=3.5"}
 typing = {version = "~=3.7.4", python = "~=2.7"}
+Sphinx = {version = "~=3.5.0", python = "~=3.5"}
+sphinx-rtd-theme = {version = "~=0.5.1", python = "~=3.5"}
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "Cython", "setuptools"]
