@@ -104,7 +104,7 @@ jobs:
 
   test_install:
     name: Test install on ${{ matrix.os }} / ${{ matrix.python-version }}
-    needs: [black, mypy, test, build_wheels, build_sdist]
+    needs: [black, mypy, docs, test, build_wheels, build_sdist]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
