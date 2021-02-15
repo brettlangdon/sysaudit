@@ -23,6 +23,8 @@ jobs:
         with:
           python-version: "3.9"
       - run: pip install "poetry~=1.1.4"
+      - run: poetry config experimental.new-installer false
+        name: Disable new installer
       - run: poetry install
       - run: poetry run mypy --py2 sysaudit/ tests/
         name: Mypy Check Python2
@@ -39,6 +41,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install "poetry~=1.1.4"
+      - run: poetry config experimental.new-installer false
+        name: Disable new installer
       - run: poetry check
       - run: poetry install
       - run: poetry run pytest tests/
@@ -51,6 +55,8 @@ jobs:
         with:
           python-version: "3.9"
       - run: pip install "poetry~=1.1.4"
+      - run: poetry config experimental.new-installer false
+        name: Disable new installer
       - run: poetry install
       - run: poetry run sphinx-build -a -W -n -E docs/ docs/_build
       - uses: actions/upload-artifact@v2
