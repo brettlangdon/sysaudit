@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Black Check
         uses: jpetrucciani/black-check@20.8b1
+
   mypy:
     runs-on: ubuntu-latest
     steps:
@@ -30,6 +31,35 @@ jobs:
         name: Mypy Check Python2
       - run: poetry run mypy sysaudit/ tests/
         name: Mypy Check Python3
+
+  bandit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - run: pip install "poetry~=1.1.4"
+      - run: poetry config experimental.new-installer false
+        name: Disable new installer
+      - run: poetry install
+      - run: poetry run bandit -r sysaudit/
+        name: Bandit check
+
+  vulture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - run: pip install "poetry~=1.1.4"
+      - run: poetry config experimental.new-installer false
+        name: Disable new installer
+      - run: poetry install
+      - run: poetry run vulture sysaudit/ tests/
+        name: Vulture check
+
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -104,7 +134,7 @@ jobs:
 
   test_install:
     name: Test install on ${{ matrix.os }} / ${{ matrix.python-version }}
-    needs: [black, mypy, docs, test, build_wheels, build_sdist]
+    needs: [black, mypy, bandit, vulture, docs, test, build_wheels, build_sdist]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
