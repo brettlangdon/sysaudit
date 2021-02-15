@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: "3.9"
-      - uses: Gr1N/setup-poetry@v4
+      - run: pip install "poetry~=1.1.4"
       - run: poetry install
       - run: poetry run mypy --py2 sysaudit/ tests/
         name: Mypy Check Python2
@@ -38,7 +38,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - uses: Gr1N/setup-poetry@v4
+      - run: pip install "poetry~=1.1.4"
       - run: poetry check
       - run: poetry install
       - run: poetry run pytest tests/
@@ -50,7 +50,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: "3.9"
-      - uses: Gr1N/setup-poetry@v4
+      - run: pip install "poetry~=1.1.4"
       - run: poetry install
       - run: poetry run sphinx-build -a -W -n -E docs/ docs/_build
       - uses: actions/upload-artifact@v2
