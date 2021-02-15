@@ -4,7 +4,7 @@ import unittest
 
 
 class BaseTest(unittest.TestCase):
-    TEST_FILE_PY = None
+    TEST_FILE_PY = None  # type: str
 
     def do_test(self, *args):
         popen_kwargs = dict(
