@@ -17,6 +17,7 @@ Cython = "^0.29.21"
 black = {version = "^20.8b1", python = "~=3.6"}
 pytest = {version = "~=4.6"}
 mock = "~=3.0"
+mypy = {version = "^0.800", python = "~=3.5"}
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "Cython", "setuptools"]
