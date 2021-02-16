@@ -10,7 +10,6 @@ import unittest
 
 from .base import BaseTest
 
-
 skip_old_py = unittest.skipIf(
     sys.version_info < (3, 8), "Skipping tests testing built-in events"
 )

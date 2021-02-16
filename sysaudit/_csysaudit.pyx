@@ -1,15 +1,24 @@
-_hooks = list()
+cdef list hooks = []
+cdef int has_hooks = 0
 
 
-def audit(event, *args):
-    global _hooks
-    # Grab a copy of hooks so we don't need to lock here
-    for hook in _hooks[:]:
+cdef void _audit(str event, tuple args) except *:
+    global hooks
+    for hook in hooks:
         hook(event, args)
 
 
-def addaudithook(callback):
-    global _hooks
+def audit(event, *args):
+    global has_hooks
+
+    if has_hooks == 0:
+        return
+    _audit(event, args)
+
+
+cpdef void addaudithook(callback) except *:
+    global hooks
+    global has_hooks
 
     # https://docs.python.org/3.8/library/sys.html#sys.addaudithook
     # Raise an auditing event `sys.addaudithook` with no arguments.
@@ -18,9 +27,9 @@ def addaudithook(callback):
     # As a result, callers cannot assume that their hook has been added
     # unless they control all existing hooks.
     try:
-        audit("sys.addaudithook")
+        _audit("sys.addaudithook", tuple())
     except RuntimeError:
         return
 
-    if callback not in _hooks:
-        _hooks.append(callback)
+    has_hooks = 1
+    hooks.append(callback)
