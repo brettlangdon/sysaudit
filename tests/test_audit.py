@@ -23,13 +23,13 @@ else:
 
 
 class AuditTest(unittest.TestCase):
-    def _do_test(self, *args, impl=None):
+    def _do_test(self, *args, **kwargs):
         popen_kwargs = dict(
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        if impl:
-            popen_kwargs["env"] = dict(SYSAUDIT_IMPL=impl)
+        if "impl" in kwargs:
+            popen_kwargs["env"] = dict(SYSAUDIT_IMPL=kwargs["impl"])
         if sys.version_info >= (3, 6):
             popen_kwargs["encoding"] = "utf-8"
 
@@ -46,15 +46,15 @@ class AuditTest(unittest.TestCase):
         for impl in IMPLEMENTATIONS:
             return self._do_test(*args, impl=impl)
 
-    def _run_python(self, *args, impl=None):
+    def _run_python(self, *args, **kwargs):
         events = []
 
         popen_kwargs = dict(
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        if impl:
-            popen_kwargs["env"] = dict(SYSAUDIT_IMPL=impl)
+        if "impl" in kwargs:
+            popen_kwargs["env"] = dict(SYSAUDIT_IMPL=kwargs["impl"])
         if sys.version_info >= (3, 6):
             popen_kwargs["encoding"] = "utf-8"
 
