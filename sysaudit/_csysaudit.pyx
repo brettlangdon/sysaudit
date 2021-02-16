@@ -11,7 +11,7 @@ cdef void _audit(str event, tuple args) except *:
 def audit(event, *args):
     global has_hooks
 
-    if not has_hooks:
+    if has_hooks == 0:
         return
     _audit(event, args)
 
