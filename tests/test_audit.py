@@ -8,7 +8,6 @@ import subprocess
 import sys
 import unittest
 
-
 AUDIT_TESTS_PY = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "audit-tests.py")
 )
@@ -17,13 +16,20 @@ skip_old_py = unittest.skipIf(
     sys.version_info < (3, 8), "Skipping tests testing built-in events"
 )
 
+if sys.version_info < (3, 8):
+    IMPLEMENTATIONS = ("csysaudit", "pysysaudit")
+else:
+    IMPLEMENTATIONS = ("stdlib", "csysaudit", "pysysaudit")
+
 
 class AuditTest(unittest.TestCase):
-    def do_test(self, *args):
+    def _do_test(self, *args, impl=None):
         popen_kwargs = dict(
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
+        if impl:
+            popen_kwargs["env"] = dict(SYSAUDIT_IMPL=impl)
         if sys.version_info >= (3, 6):
             popen_kwargs["encoding"] = "utf-8"
 
@@ -36,13 +42,19 @@ class AuditTest(unittest.TestCase):
         if p.returncode:
             self.fail("".join(p.stderr))
 
-    def run_python(self, *args):
+    def do_test(self, *args):
+        for impl in IMPLEMENTATIONS:
+            return self._do_test(*args, impl=impl)
+
+    def _run_python(self, *args, impl=None):
         events = []
 
         popen_kwargs = dict(
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
+        if impl:
+            popen_kwargs["env"] = dict(SYSAUDIT_IMPL=impl)
         if sys.version_info >= (3, 6):
             popen_kwargs["encoding"] = "utf-8"
 
@@ -56,6 +68,10 @@ class AuditTest(unittest.TestCase):
             [line.strip().partition(" ") for line in p.stdout],
             "".join(p.stderr),
         )
+
+    def run_python(self, *args):
+        for impl in IMPLEMENTATIONS:
+            return self._run_python(*args, impl=impl)
 
     def test_basic(self):
         self.do_test("test_basic")

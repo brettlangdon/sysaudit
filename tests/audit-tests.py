@@ -7,6 +7,7 @@ module with arguments identifying each test.
 
 import contextlib
 import typing
+import os
 import sys
 
 import sysaudit
