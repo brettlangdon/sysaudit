@@ -2,7 +2,7 @@ cdef list hooks = []
 cdef int has_hooks = 0
 
 
-cdef void _audit(str event, tuple args):
+cdef void _audit(str event, tuple args) except *:
     global hooks
     for hook in hooks:
         hook(event, args)
@@ -16,7 +16,7 @@ def audit(event, *args):
     _audit(event, args)
 
 
-cpdef void addaudithook(callback):
+cpdef void addaudithook(callback) except *:
     global hooks
     global has_hooks
 
