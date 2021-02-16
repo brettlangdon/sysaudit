@@ -12,7 +12,7 @@ if hasattr(sys, "audit") and hasattr(sys, "addaudithook"):
     std_audit = sys.audit
     std_addaudithook = sys.addaudithook
 
-# Try to import CPython version
+# Try to import Cython version
 csysaudit_audit = None
 csysaudit_addaudithook = None
 try:
