@@ -96,7 +96,19 @@ def _subscription_hook(event, args):
             hook(args)
 
 
-def subscribe(event, hook):
+def subscribe(event, hook=None):
+    # No hook provided, return a decorator
+    # @sysaudit.subscribe("event.name")
+    # def event_name_hook(args):
+    #     pass
+    if not hook:
+
+        def decorator(fn):
+            subscribe(event, fn)
+            return fn
+
+        return decorator
+
     global _subscriptions
     global _subscription_hook_active
 
